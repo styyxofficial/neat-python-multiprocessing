@@ -64,7 +64,8 @@ class Population(object):
             2. The current configuration object.
 
         The return value of the fitness function is ignored, but it must assign
-        a Python float to the `fitness` member of each genome.
+        a Python float to the `fitn`
+        ess` member of each genome.
 
         The fitness function is free to maintain external state, perform
         evaluations in parallel, etc.
@@ -82,12 +83,13 @@ class Population(object):
             k += 1
 
             self.reporters.start_generation(self.generation)
-
+            
             # Evaluate all genomes using the user-provided function.
             fitness_function(list(self.population.items()), self.config)
 
             # Gather and report statistics.
             best = None
+            print("Looping")
             for g in self.population.values():
                 if g.fitness is None:
                     raise RuntimeError("Fitness not assigned to genome {}".format(g.key))
