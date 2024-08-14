@@ -85,8 +85,12 @@ class Population(object):
             self.reporters.start_generation(self.generation)
             
             # Evaluate all genomes using the user-provided function.
-            fitness_function(list(self.population.items()), self.config)
+            running = fitness_function(list(self.population.items()), self.config)
+            if not running:
+                print("interrupting population.py")
+                break 
 
+            
             # Gather and report statistics.
             best = None
             print("Looping")
