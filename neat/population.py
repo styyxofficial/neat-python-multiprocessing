@@ -86,14 +86,14 @@ class Population(object):
             
             # Evaluate all genomes using the user-provided function.
             running = fitness_function(list(self.population.items()), self.config)
+
+            # If the user stops the program, running will be None
             if not running:
                 print("interrupting population.py")
                 break 
 
-            
             # Gather and report statistics.
             best = None
-            print("Looping")
             for g in self.population.values():
                 if g.fitness is None:
                     raise RuntimeError("Fitness not assigned to genome {}".format(g.key))
