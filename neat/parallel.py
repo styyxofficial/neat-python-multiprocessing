@@ -28,7 +28,7 @@ class ParallelEvaluator(object):
     """
     This function returns True if it ran successfully, and None if not successful. This function will return None if the program was cancelled by the user.
     """
-    def evaluate(self, genomes, config):
+    def evaluate(self, genomes, config, initial_dict):
         try:
             # Genomes is a list of all the genomes/neural networks. We want to divide this work onto the num_workers
             # Our eval_function accepts a list of genomes, for which it calculates and displays all the cars in parallel
@@ -41,7 +41,7 @@ class ParallelEvaluator(object):
             jobs = []
             
             for genome_list in genome_tasks:
-                jobs.append(self.pool.apply_async(self.eval_function, (genome_list, config)))
+                jobs.append(self.pool.apply_async(self.eval_function, (genome_list, config, initial_dict)))
 
 
             # Use this to terminate all process pools on close https://stackoverflow.com/a/69322020

@@ -18,7 +18,7 @@ class Population(object):
         5. Go to 1.
     """
 
-    def __init__(self, config, initial_state=None):
+    def __init__(self, config, initial_dict, initial_state=None):
         self.reporters = ReporterSet()
         self.config = config
         stagnation = config.stagnation_type(config.stagnation_config, self.reporters)
@@ -47,6 +47,7 @@ class Population(object):
             self.population, self.species, self.generation = initial_state
 
         self.best_genome = None
+        self.initial_dict = initial_dict
 
     def add_reporter(self, reporter):
         self.reporters.add(reporter)
@@ -85,7 +86,7 @@ class Population(object):
             self.reporters.start_generation(self.generation)
             
             # Evaluate all genomes using the user-provided function.
-            running = fitness_function(list(self.population.items()), self.config)
+            running = fitness_function(list(self.population.items()), self.config, self.initial_dict)
 
             # If the user stops the program, running will be None
             if not running:
